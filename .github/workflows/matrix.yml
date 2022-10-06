@@ -24,3 +24,19 @@ jobs:
         with:
           name: greet-artifacts
           path: artifacts
+
+  print-summary:
+    needs: greet-matrix
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/download-artifact@master
+        with:
+          name: greet-artifacts
+          path: artifacts
+      - run: |
+          echo "| Greetings sent |" >> $GITHUB_STEP_SUMMARY
+          echo "| -------------- |" >> $GITHUB_STEP_SUMMARY
+          for i in artifacts/*
+          do
+              echo "| $(cat $i) |" >> $GITHUB_STEP_SUMMARY
+          done
