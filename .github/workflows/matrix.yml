@@ -40,3 +40,4 @@ jobs:
           do
               echo "| $(cat $i) |" >> $GITHUB_STEP_SUMMARY
           done
+          echo "![png](https://static.wikia.nocookie.net/linux/images/a/af/Tux.png/revision/latest?cb=20070422102946&path-prefix=pl)" >> $GITHUB_STEP_SUMMARY
