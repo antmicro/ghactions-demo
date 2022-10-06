@@ -15,7 +15,9 @@ jobs:
       - name: Greet
         run: |
           mkdir -p artifacts
-           ./hello.sh "${{ matrix.name }} on $(uname)"| tee artifacts/greet
+          who=${{ matrix.name }}
+          where=$(uname)
+          ./hello.sh "$who on $where"| tee artifacts/greet-$who-$where
 
       - name: Store artifacts
         uses: actions/upload-artifact@v3
