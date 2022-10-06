@@ -1,0 +1,37 @@
+name: Complex test
+
+on: [push,pull_request,workflow_dispatch]
+
+jobs:
+  greet-anna:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Greet
+        run: |
+          mkdir -p artifacts
+           ./hello.sh "Anna on $(uname)"| tee artifacts/greet1
+
+      - name: Store artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: greet-artifacts
+          path: artifacts
+
+  greet-john:
+    runs-on: macos-12
+    needs: greet-anna
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Greet
+        run: |
+          mkdir -p artifacts
+           ./hello.sh "John on $(uname)" | tee artifacts/greet2
+
+      - name: Store artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: greet-artifacts
+          path: artifacts
